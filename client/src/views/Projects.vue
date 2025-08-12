@@ -177,11 +177,19 @@ const formatDate = (dateString) => {
 const handleGlobalClick = (event) => {
   const editButton = event.target.closest(".edit-project-button");
   const addButton = event.target.closest(".add-project-button");
+  const seeButton = event.target.closest(".see-project-button");
+  // modal
   const modal = event.target.closest(".project-modal");
+
+  const detailModal = event.target.closest(".project-detail-modal");
 
   if (editProjectsToggle.value && !editButton && !addButton && !modal) {
     editProjectsToggle.value = false;
     currentProjectId.value = null;
+  }
+  if (showProjectDetails.value && !seeButton && !detailModal) {
+    showProjectDetails.value = false;
+    selectedProject.value = {};
   }
 };
 
@@ -263,13 +271,13 @@ onMounted(async () => {
                 class="w-full h-full object-cover transition-transform duration-300"
               />
               <div
-                class="project-overlay absolute inset-0 bg-primary/90 flex items-center justify-center opacity-0 transition-opacity duration-300"
+                class="project-overlay absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100"
               >
                 <div class="project-actions flex gap-4">
                   <a
                     v-if="project.liveUrl"
                     :href="project.liveUrl"
-                    class="action-btn flex items-center justify-center w-12 h-12 bg-white text-primary rounded-full hover:bg-primary hover:text-white transition-all duration-300"
+                    class="project-link w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary hover:bg-gray-100 transition-all duration-300"
                     target="_blank"
                     title="Live Demo"
                   >
@@ -312,12 +320,18 @@ onMounted(async () => {
               <p class="text-gray-600 mb-4 leading-relaxed">
                 {{ project.description.slice(0, 100)
                 }}{{ project.description.length > 100 ? "..." : "" }}
-                <button v-if="project.description.length > 100" @click="openProjectDetails(project)" class="ml-2 text-primary underline text-xs">See More</button> 
+                <button
+                  v-if="project.description.length > 100"
+                  @click="openProjectDetails(project)"
+                  class="ml-2 text-primary underline text-xs see-project-button"
+                >
+                  See More
+                </button>
               </p>
 
               <div class="project-tech flex flex-wrap gap-2 mb-4">
                 <span
-                  v-for="tech in project.technologies.slice(0,4 )"
+                  v-for="tech in project.technologies.slice(0, 4)"
                   :key="tech"
                   class="tech-tag bg-gray-100 px-3 py-1 rounded-full text-sm text-primary font-medium"
                 >
@@ -535,25 +549,72 @@ onMounted(async () => {
 
     <!-- Project Details Modal -->
     <teleport to="body" v-if="showProjectDetails">
-      <section class="fixed inset-0 z-[999] bg-black bg-opacity-70 flex justify-center items-center p-0">
-        <div @click.stop class="bg-white rounded-2xl w-full max-w-3xl shadow-2xl mx-4 flex flex-col overflow-y-auto" style="max-height:90vh;">
+      <section
+        class="fixed inset-0 z-[999] bg-black bg-opacity-70 flex justify-center items-center p-0"
+      >
+        <div
+          @click.stop
+          class="project-detail-modal bg-white rounded-2xl w-full max-w-3xl shadow-2xl mx-4 flex flex-col overflow-y-auto"
+          style="max-height: 90vh"
+        >
           <div class="px-10 pt-10 pb-6 flex flex-col items-center">
-            <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">{{ selectedProject.title }}</h2>
-            <img v-if="selectedProject.image" :src="selectedProject.image" :alt="selectedProject.title" class="w-full max-h-64 object-cover rounded-xl mb-6 shadow" />
+            <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">
+              {{ selectedProject.title }}
+            </h2>
+            <img
+              v-if="selectedProject.image"
+              :src="selectedProject.image"
+              :alt="selectedProject.title"
+              class="w-full max-h-64 object-cover rounded-xl mb-6 shadow"
+            />
           </div>
           <div class="px-10 pb-10 flex flex-col">
-            <p class="mb-8 text-gray-700 text-base leading-relaxed">{{ selectedProject.description }}</p>
+            <p class="mb-8 text-gray-700 text-base leading-relaxed">
+              {{ selectedProject.description }}
+            </p>
             <div class="mb-6">
               <strong class="text-gray-700">Technologies:</strong>
               <div class="flex flex-wrap gap-2 mt-2">
-                <span v-for="tech in selectedProject.technologies" :key="tech" class="inline-block bg-gray-100 text-primary px-3 py-1 rounded-full text-sm font-medium">{{ tech }}</span>
+                <span
+                  v-for="tech in selectedProject.technologies"
+                  :key="tech"
+                  class="inline-block bg-gray-100 text-primary px-3 py-1 rounded-full text-sm font-medium"
+                  >{{ tech }}</span
+                >
               </div>
             </div>
-            <div class="mb-4"><strong class="text-gray-700">Status:</strong> <span class="ml-2">{{ selectedProject.status }}</span></div>
-            <div class="mb-4"><strong class="text-gray-700">Duration:</strong> <span class="ml-2">{{ selectedProject.duration }}</span></div>
-            <div class="mb-4" v-if="selectedProject.githubUrl"><strong class="text-gray-700">GitHub:</strong> <a :href="selectedProject.githubUrl" target="_blank" class="text-primary underline ml-2">View Code</a></div>
-            <div class="mb-4" v-if="selectedProject.liveUrl"><strong class="text-gray-700">Live Demo:</strong> <a :href="selectedProject.liveUrl" target="_blank" class="text-primary underline ml-2">View Demo</a></div>
-            <button @click="closeProjectDetails" class="mt-8 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all duration-200 self-end">Close</button>
+            <div class="mb-4">
+              <strong class="text-gray-700">Status:</strong>
+              <span class="ml-2">{{ selectedProject.status }}</span>
+            </div>
+            <div class="mb-4">
+              <strong class="text-gray-700">Duration:</strong>
+              <span class="ml-2">{{ selectedProject.duration }}</span>
+            </div>
+            <div class="mb-4" v-if="selectedProject.githubUrl">
+              <strong class="text-gray-700">GitHub:</strong>
+              <a
+                :href="selectedProject.githubUrl"
+                target="_blank"
+                class="text-primary underline ml-2"
+                >View Code</a
+              >
+            </div>
+            <div class="mb-4" v-if="selectedProject.liveUrl">
+              <strong class="text-gray-700">Live Demo:</strong>
+              <a
+                :href="selectedProject.liveUrl"
+                target="_blank"
+                class="text-primary underline ml-2"
+                >View Demo</a
+              >
+            </div>
+            <button
+              @click="closeProjectDetails"
+              class="mt-8 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all duration-200 self-end"
+            >
+              Close
+            </button>
           </div>
         </div>
       </section>

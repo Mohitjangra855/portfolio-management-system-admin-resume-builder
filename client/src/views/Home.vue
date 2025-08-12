@@ -203,7 +203,7 @@
                 class="w-full h-full object-cover transition-all duration-300"
               />
               <div
-                class="project-overlay absolute inset-0 bg-primary/90 flex items-center justify-center opacity-0 transition-all duration-300 hover:opacity-100"
+                class="project-overlay absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100"
               >
                 <div class="project-links flex gap-4">
                   <a
