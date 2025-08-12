@@ -323,9 +323,9 @@ onMounted(async () => {
                 <button
                   v-if="project.description.length > 100"
                   @click="openProjectDetails(project)"
-                  class="ml-2 text-primary underline text-xs see-project-button"
+                  class="ml-2 text-primary underline see-project-button"
                 >
-                  See More
+                  Read More
                 </button>
               </p>
 
@@ -507,6 +507,18 @@ onMounted(async () => {
               </div>
             </div>
 
+            <!-- Short Description -->
+            <div>
+              <label class="block font-medium mb-1 text-gray-700"
+                >Project Short Description *</label
+              >
+              <textarea
+                v-model="updateProjectForm.shortDescription"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                rows="4"
+                placeholder="Describe the project, its features, and what you learned..."
+              ></textarea>
+            </div>
             <!-- Description -->
             <div>
               <label class="block font-medium mb-1 text-gray-700"

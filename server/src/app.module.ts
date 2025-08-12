@@ -9,6 +9,7 @@ import { EducationModule } from './education/education.module';
 import { SkillModule } from './skill/skill.module';
 import { CompanyModule } from './company/company.module';
 import { CacheManagerModule } from './cacheManger/cache.manger';
+import { ContactModule } from './contact/contact.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CacheManagerModule } from './cacheManger/cache.manger';
     JwtConfigModule, EducationModule, SkillModule, CompanyModule,
     // Import CacheManagerModule to enable caching
     CacheManagerModule,
+    ContactModule,
   ],
   controllers: [AppController],
   providers: [AppService],

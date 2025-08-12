@@ -165,5 +165,8 @@ export const educationApi = {
   delete: (id) => apiService.delete(`/education/${id}`)
 }
 
+export const sendEmail = {
+  send: (emailData) => apiService.post('/contact', emailData)
+}
  
 export default apiService

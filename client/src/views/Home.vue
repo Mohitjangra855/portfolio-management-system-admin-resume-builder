@@ -250,7 +250,7 @@
                     {{ project.description.slice(0, 100)
                    }}{{ project.description.length > 100 ? "..." : "" }}
                    <span v-if="project.description.length > 100">
-    ... <router-link :to="`/projects#project-${project.id}`" class="text-primary underline text-xs">See More</router-link>
+    ... <router-link :to="`/projects#project-${project.id}`" class="text-primary underline">Read More</router-link>
   </span>
                
                 </p>

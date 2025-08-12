@@ -70,6 +70,20 @@
                 <i class="fas fa-map-marker-alt text-blue-600"></i>
                 <span>{{ personalInfo.location }}</span>
               </div>
+              <div
+                v-if="personalInfo.linkedin"
+                class="flex items-center gap-2 text-gray-600"
+              >
+                <i class="fab fa-linkedin text-blue-600"></i>
+                <span>{{ personalInfo.linkedin.slice(28) }}</span>
+              </div>
+              <div
+                v-if="personalInfo.github"
+                class="flex items-center gap-2 text-gray-600"
+              >
+                <i class="fab fa-github text-blue-600"></i>
+                <span>@{{ personalInfo.github.slice(19) }}</span>
+              </div>
             </div>
           </div>
 
@@ -230,7 +244,7 @@
                         {{ project.name || project.title }}
                       </h4>
                     </div>
-                    <p class="text-gray-700 mb-3">{{ project.description }}</p>
+                    <p class="text-gray-700 mb-3">{{ project.shortDescription }}</p>
                     <div class="flex flex-wrap gap-2 mb-3">
                       <span
                         v-for="tech in project.technologies"
@@ -321,6 +335,8 @@ const personalInfo = computed(() => ({
   title: userStore.user?.title || "Full Stack Developer",
   email: userStore.user?.email || "mohit@example.com",
   phone: userStore.user?.phone || "+91-9876543210",
+  linkedin: userStore.user?.linkedin || "https://www.linkedin.com/in/mohit-kumar",
+  github: userStore.user?.github || "https://github.com/mohit-kumar",
   location: userStore.user?.address || "Delhi, India",
 }));
 
