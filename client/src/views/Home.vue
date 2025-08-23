@@ -367,7 +367,9 @@
               <div class="flex items-center justify-between">
                 <span class="text-sm text-gray-600">Duration:</span>
                 <span class="text-sm font-medium text-gray-800"
-                  >{{ edu.totalYears }} year(s)</span
+                  >{{ formatEducationDuration(edu) }}
+                  <!-- education duration -->
+                  </span
                 >
               </div>
               <div v-if="edu.description" class="mt-3">
@@ -428,6 +430,17 @@ const user = computed(() => {
 // userStore.user.companies directly use kar rahe hain
 
 // Calculate total experience across all companies
+
+function formatEducationDuration(edu) {
+  const startYear = edu.startDate; // Already integer from schema
+  const endYear = edu.endDate; // Already integer from schema
+
+  if (!endYear || !endYear) {
+    return 0;
+  }
+
+  return endYear - startYear;
+}
 const calculateTotalExperience = () => {
   const companies = companyStore.getCompanies || [];
   let totalMonths = 0;
