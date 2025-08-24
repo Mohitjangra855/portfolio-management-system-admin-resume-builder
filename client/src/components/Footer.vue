@@ -3,7 +3,7 @@
     <div class="max-w-6xl mx-auto px-5">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-12">
         <div class="text-center md:text-left">
-          <h3 class="text-2xl font-semibold mb-4 text-white">Portfolio</h3>
+          <h3 class="text-2xl font-semibold mb-4 text-white">{--}</h3>
           <p class="mb-4 opacity-90 leading-relaxed">Creating beautiful and functional web experiences.</p>
           <div class="flex gap-4 justify-center md:justify-start mt-4">
             <a 
@@ -18,18 +18,7 @@
             >
               <i class="fab fa-linkedin"></i>
             </a>
-            <a 
-              href="#" 
-              class="flex items-center justify-center w-10 h-10 bg-white/10 rounded-full text-white no-underline transition-all duration-300 backdrop-blur-sm hover:bg-white/20 hover:-translate-y-1 hover:shadow-lg"
-            >
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a 
-              href="#" 
-              class="flex items-center justify-center w-10 h-10 bg-white/10 rounded-full text-white no-underline transition-all duration-300 backdrop-blur-sm hover:bg-white/20 hover:-translate-y-1 hover:shadow-lg"
-            >
-              <i class="fab fa-instagram"></i>
-            </a>
+          
           </div>
         </div>
         

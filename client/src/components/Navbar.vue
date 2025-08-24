@@ -11,8 +11,8 @@
     <div class="max-w-6xl mx-auto px-5">
       <div class="flex justify-between items-center h-full">
         <router-link to="/" class="no-underline">
-          <span class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Portfolio
+          <span class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-center">
+           {--}
           </span>
         </router-link>
         

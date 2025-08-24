@@ -165,6 +165,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useUserStore } from "@/stores/userStore";
+import { sendEmail } from "@/services/api";
 
 // Get store
 const userStore = useUserStore();
@@ -238,10 +239,20 @@ async function submitForm() {
   submitMessage.value = "";
 
   try {
-    await new Promise((res) => setTimeout(res, 1500)); // simulate delay
-    submitStatus.value = "success";
-    submitMessage.value = "Message sent successfully!";
-    console.log('Form submitted:', form.value);
+    // Simulate API call
+    const res = await sendEmail.send(form.value);
+    if(res.success){
+      await new Promise((res) => setTimeout(res, 1500)); // simulate delay
+      submitStatus.value = "success";
+      submitMessage.value = "Message sent successfully!";
+      console.log('Form submitted:', form.value);
+    }else{
+      await new Promise((res) => setTimeout(res, 1500)); // simulate delay
+      submitStatus.value = "error";
+      submitMessage.value = "Something went wrong. Please try again.";
+      console.error('Error submitting form:', res);
+    }
+
 
     form.value = {
       name: "",

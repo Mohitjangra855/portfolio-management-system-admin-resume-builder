@@ -1,5 +1,8 @@
-// API Base URL - Change this to your server URL
-const API_BASE_URL = 'http://localhost:3000'
+
+// Use VUE_APP_BACKEND_URL (Vue CLI).
+const API_BASE_URL = process.env.VUE_APP_BACKEND_URL
+
+
 
 // API Service class for making HTTP requests
 class ApiService {

@@ -1,3 +1,4 @@
+
   import { NestFactory } from '@nestjs/core';
   import { AppModule } from './app.module';
   import { SwaggerModule } from '@nestjs/swagger/dist/swagger-module';
@@ -17,12 +18,13 @@
 
     // Enable CORS for the frontend application
 
-    app.enableCors({
-      origin: 'http://localhost:8080',
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-      credentials: true,
-      allowedHeaders:  ['Content-Type', 'Accept', 'Authorization'],
-    });
+   app.enableCors({
+  origin: process.env.FRONTEND_URL ,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+});
+
     // app.setGlobalPrefix('api');
     //set cookie parser
   app.use(cookieParser());

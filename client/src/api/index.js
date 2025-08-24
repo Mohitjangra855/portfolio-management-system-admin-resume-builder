@@ -3,7 +3,7 @@ import { useToast } from 'vue-toastification'
 
 // Create axios instance
 const api = axios.create({
-  baseURL: process.env.VUE_APP_API_URL || 'http://localhost:3000/api',
+  baseURL:process.env.VUE_APP_API_URL ,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
